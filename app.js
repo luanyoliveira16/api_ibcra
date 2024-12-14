@@ -6,8 +6,6 @@ import router from './routes/membrosRoutes.js';
 const app = express();
 const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como padrão
 
-const cors = require('cors');
-
 const corsOptions = async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
