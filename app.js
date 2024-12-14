@@ -20,8 +20,6 @@ const corsOptions = async (req, res, next) => {
     next();
 };
 
-module.exports = corsOptions;
-
 app.use(cors(corsOptions));
 
 app.use(express.json());
