@@ -7,10 +7,11 @@ const app = express();
 const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como padrão
 
 
-app.use(cors(
-    origin: "https://localhost:5173",
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-));
+app.use(cors({
+  origin: 'http://localhost:5173', // Substitua pelo domínio da sua aplicação
+  credentials: true,
+}));
+
 
 app.use(express.json());
 app.use('/membros', router);
