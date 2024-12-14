@@ -1,17 +1,16 @@
 import 'dotenv/config';
 import express from 'express';
+import cors from 'cors';
 import router from './routes/membrosRoutes.js';
 
 const app = express();
 const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como padrão
 
 app.use(cors({
-    origin: '*', // Permite todas as origens
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // Permite todos os métodos necessários
-    allowedHeaders: ['Content-Type', 'Authorization'], // Permite os cabeçalhos necessários
-    credentials: true, // Se necessário, permite envio de cookies
-}));
-
+    origin:'*',
+    methods:['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}))
 
 app.use(express.json());
 app.use('/membros', router);
