@@ -15,16 +15,35 @@ router.get('/:id', async (req, res) => {
     res.status(200).send(result)
 })
 
-router.post('/', async (req, res)=>{
-    const { body } = req;
-    const columnsArray = ['nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro', 'foto']
-    const valuesArray = columnsArray.reduce((acc, columnName) => {
-        acc.push(body[columnName]);
-        return acc;
-    }, [])
-    await new MemberRepository().insertMember(valuesArray)
-    res.status(200).send();
-})
+router.post('/', async (req, res) => {
+    const { nome, data_nascimento, telefone, endereco, data_entrada, funcao, email, foto } = req.body;
+
+    if (!nome || !data_nascimento || !telefone || !endereco || !data_entrada || !funcao || !email) {
+        return res.status(400).json({ error: "Todos os campos são obrigatórios" });
+    }
+
+    const valuesArray = [nome, data_nascimento, telefone, endereco, data_entrada, funcao, email, new Date(), foto];
+
+    try {
+        await new MemberRepository().insertMember(valuesArray);
+        res.status(200).send();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+
+// router.post('/', async (req, res)=>{
+//     const { body } = req;
+//     const columnsArray = ['nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro', 'foto']
+//     const valuesArray = columnsArray.reduce((acc, columnName) => {
+//         acc.push(body[columnName]);
+//         return acc;
+//     }, [])
+//     await new MemberRepository().insertMember(valuesArray)
+//     res.status(200).send();
+// })
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
