@@ -10,6 +10,7 @@ const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'http://localhost:5174',
     'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
+    'Headers': 'Content-Type, Authorization'
 };
 
 
