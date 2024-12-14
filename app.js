@@ -7,9 +7,9 @@ const app = express();
 const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como padrão
 
 app.use(cors({
-    origin:'*',
     methods:['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', "Access-Control-Allow-Origin"]
+    Access-Control-Allow-Origin: '*',
+    allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
 app.use(express.json());
