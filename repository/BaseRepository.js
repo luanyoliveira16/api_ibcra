@@ -20,58 +20,41 @@ class BaseRepository {
         }
     }
 
-    async insertMember(table, columns, valuesArray) {
-    try {
-        // Verificar se todos os valores necessários estão preenchidos
-        for (let i = 0; i < columns.length; i++) {
-            if (valuesArray[i] === null || valuesArray[i] === undefined) {
-                throw new Error(`Column '${columns[i]}' cannot be null or undefined.`);
+    async insertMember(table, columnsArray, valuesArray) {
+        let client;
+
+        try {
+            client = await pool.getConnection();
+
+            // Criação de placeholders (?)
+            const placeholders = Array.from({ length: columnsArray.length }, (_, i) => '?').join(', ');
+
+            // Monta a string da query
+            const queryText = `INSERT INTO ${table} (${columnsArray.join(', ')}) VALUES (${placeholders})`;
+
+            // Inicia a transação
+            await client.beginTransaction();
+
+            // Executa a query de inserção
+            await client.query(queryText, valuesArray);
+
+            // Confirma a transação
+            await client.commit();
+
+        } catch (error) {
+            if (client) {
+                // Reverte a transação em caso de erro
+                await client.rollback();
+            }
+            throw error;
+
+        } finally {
+            if (client) {
+                // Libera a conexão de volta ao pool
+                client.release();
             }
         }
-
-        // Realizar a inserção no banco de dados
-        await super.insertMember(table, columns, valuesArray);
-    } catch (error) {
-        throw error;
     }
-}
-
-
-    // async insertMember(table, columnsArray, valuesArray) {
-    //     let client;
-
-    //     try {
-    //         client = await pool.getConnection();
-
-    //         // Criação de placeholders (?)
-    //         const placeholders = Array.from({ length: columnsArray.length }, (_, i) => '?').join(', ');
-
-    //         // Monta a string da query
-    //         const queryText = `INSERT INTO ${table} (${columnsArray.join(', ')}) VALUES (${placeholders})`;
-
-    //         // Inicia a transação
-    //         await client.beginTransaction();
-
-    //         // Executa a query de inserção
-    //         await client.query(queryText, valuesArray);
-
-    //         // Confirma a transação
-    //         await client.commit();
-
-    //     } catch (error) {
-    //         if (client) {
-    //             // Reverte a transação em caso de erro
-    //             await client.rollback();
-    //         }
-    //         throw error;
-
-    //     } finally {
-    //         if (client) {
-    //             // Libera a conexão de volta ao pool
-    //             client.release();
-    //         }
-    //     }
-    // }
 
     async deleteMember(table, id) {
         let client;
