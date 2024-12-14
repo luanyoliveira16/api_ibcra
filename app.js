@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como p
 const corsOptions = {
     origin: 'http://localhost:5174', // Permite requisições de 'http://localhost:5174'
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Permite os métodos HTTP
-    allowedHeaders: ['Content-Type', 'x-teste'], // Headers permitidos
+    allowedHeaders: ['Content-Type', 'x-teste', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Headers'], // Headers permitidos
 };
 
 app.use(cors(corsOptions));
