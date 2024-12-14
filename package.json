@@ -6,9 +6,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch .",
     "vercel-build": "npx prisma migrate deploy"
-  }
+
+  },
   "type": "module",
-  "keywords": [], 
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
