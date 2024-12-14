@@ -7,35 +7,20 @@ const app = express();
 const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como padrão
 
 
-app.use(cors({
-  origin: 'http://localhost:5173', // Substitua pelo domínio da sua aplicação
-  credentials: true,
-}));
-
 app.use((req, res, next) => {
-   res.header('Access-Control-Allow-Origin', '*'); // Permitir todas as origens
-   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-   next();
-});
+    res.header('Acess-Control-Allow-Origin', '*');
+    res.header('Acess-Control-Allow-Header', 'Content-Type',
+        'Origin, X-Requrested-width, Content-Type, Accept, Authorization'
+    );
 
-app.post('https://api-ibcra.vercel.app/membros', async (req, res) => {
-    try {
-        const response = await fetch('https://api-ibcra.vercel.app/membros', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(req.body),
-        });
-
-        const data = await response.json();
-        res.status(response.status).json(data);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+    if (req.method === 'OPTIONS') {
+        res.hearder('Acess-Control-Allow-Methods', 'PUT, POST, GET, DELETE')
+        return res.status(200).send({})
     }
-});
 
+    next();
+
+});
 
 app.use(express.json());
 app.use('/membros', router);
