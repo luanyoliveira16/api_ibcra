@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como p
 
 
 app.use(cors(
-    'Access-Control-Allow-Origin: https://localhost:5173',
+    origin: "https://localhost:5173",
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 ));
 
