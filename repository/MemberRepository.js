@@ -21,11 +21,23 @@ class MemberRepository extends BaseRepository {
 
     async insertMember(valuesArray) {
         try {
-            await super.insertMember('membros', ['nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro', 'foto'], valuesArray);
+            const columnsArray = ['nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro', 'foto'];
+            const table = 'membros';
+
+            return await super.insertMember(table, columnsArray, valuesArray);
+
         } catch (error) {
             throw error;
         }
     }
+
+    // async insertMember(valuesArray) {
+    //     try {
+    //         await super.insertMember('membros', ['nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro', 'foto'], valuesArray);
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
 
     async updateMember(id, data) {
         try {
