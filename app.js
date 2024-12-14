@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como p
 app.use(cors({
     origin: '*', // Permite todas as origens
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // Permite todos os métodos necessários
-    allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods'], // Permite os cabeçalhos necessários
+    allowedHeaders: ['Content-Type', 'Authorization'], // Permite os cabeçalhos necessários
     credentials: true, // Se necessário, permite envio de cookies
 }));
 
