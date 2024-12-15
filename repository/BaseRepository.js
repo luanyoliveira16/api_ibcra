@@ -21,9 +21,7 @@ class BaseRepository {
     }
 
       async insertMember(table, columnsArray, valuesArray) {
-          console.log('Table:', table);
-          console.log('Columns:', columnsArray);
-          console.log('Values:', valuesArray);
+          
         let client;
 
         try {
