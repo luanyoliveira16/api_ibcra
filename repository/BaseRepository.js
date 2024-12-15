@@ -20,7 +20,7 @@ class BaseRepository {
         }
     }
 
-    async insertMember(table, columnsArray, valuesArray) {
+      async insertMember(table, columnsArray, valuesArray) {
         let client;
 
         try {
@@ -36,10 +36,12 @@ class BaseRepository {
             await client.beginTransaction();
 
             // Executa a query de inserção
-            await client.query(queryText, valuesArray);
+            const [result] = await client.query(queryText, valuesArray);
 
             // Confirma a transação
             await client.commit();
+
+            return result.insertId; // Retorna o ID gerado para o registro inserido
 
         } catch (error) {
             if (client) {
@@ -55,6 +57,42 @@ class BaseRepository {
             }
         }
     }
+
+    // async insertMember(table, columnsArray, valuesArray) {
+    //     let client;
+
+    //     try {
+    //         client = await pool.getConnection();
+
+    //         // Criação de placeholders (?)
+    //         const placeholders = Array.from({ length: columnsArray.length }, (_, i) => '?').join(', ');
+
+    //         // Monta a string da query
+    //         const queryText = `INSERT INTO ${table} (${columnsArray.join(', ')}) VALUES (${placeholders})`;
+
+    //         // Inicia a transação
+    //         await client.beginTransaction();
+
+    //         // Executa a query de inserção
+    //         await client.query(queryText, valuesArray);
+
+    //         // Confirma a transação
+    //         await client.commit();
+
+    //     } catch (error) {
+    //         if (client) {
+    //             // Reverte a transação em caso de erro
+    //             await client.rollback();
+    //         }
+    //         throw error;
+
+    //     } finally {
+    //         if (client) {
+    //             // Libera a conexão de volta ao pool
+    //             client.release();
+    //         }
+    //     }
+    // }
 
     async deleteMember(table, id) {
         let client;
