@@ -16,12 +16,14 @@ const allowCors = fn => async (req, res) => {
 // Função para lidar com a requisição
 const handler = async (req, res) => {
   try {
-    if (req.method === 'GET') {
-      // Exemplo de resposta para GET
-      const data = {
-        message: 'GET request successful',
-        data: 'Informações recebidas com sucesso!'
-      };
+    if (req.method === 'GET' && req.url === '/membros') {
+      // Aqui você deveria implementar a lógica para buscar os dados dos membros
+      const data = await fetch('https://api-ibcra.vercel.app/membros')
+        .then(response => response.json())
+        .catch(err => {
+          throw new Error('Erro ao buscar os membros');
+        });
+
       res.status(200).json(data);
     } else if (req.method === 'POST') {
       // Exemplo de resposta para POST
