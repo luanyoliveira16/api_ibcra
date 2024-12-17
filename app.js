@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000; // Usa a porta do ambiente ou 3000 como p
 
 
 
-app.use(cors());
+app.use(cors(origin: 'http://localhost:5173'));
 
 // app.use((req, res, next) => {
 //     res.header('Acess-Control-Allow-Origin', '*');
