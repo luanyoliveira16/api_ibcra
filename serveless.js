@@ -16,8 +16,11 @@ const allowCors = fn => async (req, res) => {
 }
 
 const handler = (req, res) => {
-  const d = new Date()
-  res.end(d.toString())
+  const d = new Date();
+  res.setHeader('Content-Type', 'application/json'); // Define o tipo de conteúdo como JSON
+  res.end(JSON.stringify({ date: d.toISOString() })); // Retorna um JSON com a data no formato ISO
+};
+
 }
 
 export default allowCors(handler)
