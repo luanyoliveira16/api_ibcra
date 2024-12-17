@@ -10,17 +10,35 @@ const allowCors = fn => async (req, res) => {
     return;
   }
 
-  // Passa a requisição para o manipulador
-  return fn(req, res);
-}
+  return await fn(req, res);
+};
 
-// Manipulador de rota
+// Função para lidar com a requisição
 const handler = async (req, res) => {
   try {
-    const data = await fetchMembros();
-    res.json(data); // Aqui é onde o conteúdo da requisição é retornado
-  } catch (err) {
-    res.status(500).json({ error: "Erro ao buscar os dados." });
+    if (req.method === 'GET') {
+      // Exemplo de resposta para GET
+      const data = {
+        message: 'GET request successful',
+        data: 'Informações recebidas com sucesso!'
+      };
+      res.status(200).json(data);
+    } else if (req.method === 'POST') {
+      // Exemplo de resposta para POST
+      const body = req.body;
+      const data = {
+        message: 'POST request successful',
+        receivedData: body
+      };
+      res.status(200).json(data);
+    } else {
+      // Método não suportado
+      res.setHeader('Allow', ['GET', 'POST']);
+      res.status(405).end(`Método ${req.method} não permitido`);
+    }
+  } catch (error) {
+    // Tratamento de erro genérico
+    res.status(500).json({ error: 'Ocorreu um erro interno' });
   }
 };
 
