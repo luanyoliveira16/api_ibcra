@@ -1,12 +1,11 @@
 import express from 'express';
 import router from './routes/membrosRoutes.js';
-import allowCors from './serveless.js';
 import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(allowCors)
+app.use(cors())
 
 // Middleware para parsear JSON do corpo da requisição
 app.use(express.json());
