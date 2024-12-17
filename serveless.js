@@ -12,17 +12,9 @@ const allowCors = fn => async (req, res) => {
 
   return await fn(req, res);
 }
-
-// Manipulador de rota
-const handler = async (req, res) => {
-  // Aqui você deve retornar os dados que deseja que sejam manipulados e enviados como resposta
-  const data = {
-    message: "API rodando corretamente!",
-    timestamp: new Date().toISOString()
-  };
   
   res.json(data);
 }
 
-export default allowCors(handler);
+export default allowCors;
 
