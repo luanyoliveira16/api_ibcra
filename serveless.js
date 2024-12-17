@@ -10,11 +10,18 @@ const allowCors = fn => async (req, res) => {
     return;
   }
 
-  return await fn(req, res);
-}
-  
-  res.json(data);
+  // Passa a requisição para o manipulador
+  return fn(req, res);
 }
 
-export default allowCors;
+// Manipulador de rota
+const handler = async (req, res) => {
+  try {
+    const data = await fetchMembros();
+    res.json(data); // Aqui é onde o conteúdo da requisição é retornado
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao buscar os dados." });
+  }
+};
 
+export default allowCors(handler);
