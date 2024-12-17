@@ -14,12 +14,6 @@ app.use(express.json());
 // Roteamento dos membros
 app.use('/membros', router);
 
-// Handler para todos os endpoints
-app.use((req, res) => {
-  const d = new Date();
-  res.end(d.toString());
-});
-
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
 });
