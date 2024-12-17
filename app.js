@@ -1,6 +1,6 @@
 import express from 'express';
 import router from './routes/membrosRoutes.js';
-import { allowCors } from './serveless.js';
+import allowCors from './serveless.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
