@@ -6,7 +6,7 @@ import cors from 'cors';
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.user(cors())
+app.use(cors())
 
 // Middleware para parsear JSON do corpo da requisição
 app.use(express.json());
