@@ -1,7 +1,6 @@
 import express from 'express';
-import cors from 'cors';
 import router from './routes/membrosRoutes.js';
-import allowCors from './servelessVercel.js';
+import allowCors from './serveless.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,11 +15,10 @@ app.use(express.json());
 app.use('/membros', router);
 
 // Handler para todos os endpoints
-const handler = (req, res) => {
+app.use((req, res) => {
   const d = new Date();
   res.end(d.toString());
-};
-app.use(handler); // Adiciona o handler para lidar com todos os endpoints
+});
 
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
