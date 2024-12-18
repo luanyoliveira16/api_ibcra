@@ -13,9 +13,6 @@ app.use((req, res, next) => {
 
     // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
     if (req.method === 'OPTIONS') {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
         return res.status(200).end();
     }
 
@@ -28,7 +25,7 @@ app.use(cors({ origin: true }))
 app.use(express.json());
 
 // Roteamento dos membros
-app.use('/membros', router);
+app.use('/membros/', router);
 
 
 app.listen(port, () => {
