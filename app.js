@@ -34,14 +34,12 @@ const app = express();
 
 
 // Configure CORS
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Permitir apenas essa origem
-    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
-    credentials: true, // Permitir cookies ou autenticação
-  })
-);
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 // Middleware de JSON
 app.use(express.json());
 
