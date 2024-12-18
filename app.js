@@ -1,29 +1,24 @@
-const express = require('express');
-const cors = require('cors');
-const router = require('./routes/membrosRoutes.js');
+import express from 'express';
+import router from './routes/membrosRoutes.js';
+// import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Configurações CORS
-const corsOptions = {
-    origin: '*',
-    methods: ['GET', 'OPTIONS', 'PATCH', 'DELETE', 'POST', 'PUT'],
-    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
-};
+// app.use(cors())
 
-app.use(cors(corsOptions));
-
-// Tratamento para requisições pré-flights (OPTIONS)
+// Middleware para permitir CORS
 app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
+
+    // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
     if (req.method === 'OPTIONS') {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
-        res.sendStatus(200);
-    } else {
-        next();
+        return res.status(200).end();
     }
+
+    next();
 });
 
 // Middleware para parsear JSON do corpo da requisição
@@ -33,5 +28,5 @@ app.use(express.json());
 app.use('/membros', router);
 
 app.listen(port, () => {
-    console.log(`API rodando na porta ${port}`);
+  console.log(`API rodando na porta ${port}`);
 });
