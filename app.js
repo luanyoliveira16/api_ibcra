@@ -1,42 +1,31 @@
 import express from 'express';
-import cors from 'cors';
 import router from './routes/membrosRoutes.js';
+import cors from 'cors';
 
+const corsOptions = {
+    origin: '*', // Permitir todas as origens
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'], // Permitir DELETE
+    allowedHeaders: ['Content-Type', 'Authorization', '*'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+};
+
+const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-
-// Configuração de CORS
-const corsOptions = {
-    origin: 'http://localhost:5173', // Permitir apenas a origem do frontend
-    methods: ['GET', 'OPTIONS', 'PATCH', 'DELETE', 'POST', 'PUT'],
-    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
-    credentials: true,
-};
 
 app.use(cors(corsOptions));
 
 // Middleware para parsear JSON do corpo da requisição
 app.use(express.json());
 
-// Tratamento para requisições pré-flights (OPTIONS)
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
-        res.sendStatus(200);
-    } else {
-        next();
-    }
-});
-
 // Roteamento dos membros
-app.use('/membros', router);
+const router = require('./routes/membrosRoutes.js');
+app.use('/api/membros', router);
 
 app.listen(port, () => {
     console.log(`API rodando na porta ${port}`);
 });
-
 
 
 
@@ -51,6 +40,7 @@ app.listen(port, () => {
 
 // // Middleware para permitir CORS
 // app.use((req, res, next) => {
+//     if (req.method == 'GET' || req.method == 'DELETE' || req
 //     res.header("Access-Control-Allow-Origin", "*");
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
