@@ -39,20 +39,40 @@ const port = process.env.PORT || 3000;
 // app.use(cors())
 
 // Middleware para permitir CORS
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-         res.header("Access-Control-Allow-Origin", "*");
-         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-         res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
-         res.sendStatus(200);
-    } else {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
+// app.use((req, res, next) => {
+//     if (req.method === 'OPTIONS') {
+//          res.header("Access-Control-Allow-Origin", "*");
+//          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//          res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
+//          res.sendStatus(200);
+//     } else {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
    
-    }
-    // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
+//     }
+//     // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
     
+
+//     next();
+// });
+
+app.use((req, res, next) => {
+    const allowedOrigins = ['http://localhost:5173']; // Lista de origens permitidas
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
+
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+    // Responde imediatamente para OPTIONS
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
 
     next();
 });
