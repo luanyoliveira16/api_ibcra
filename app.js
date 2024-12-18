@@ -41,7 +41,7 @@ const port = process.env.PORT || 3000;
 Middleware para permitir CORS
 app.use((req, res, next) => {
     if (req.method === 'OPTIONS') {
-         res.header("Access-Control-Allow-Origin", "https");
+         res.header("Access-Control-Allow-Origin", "https://localhost:5173");
          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
          res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
          res.sendStatus(200);
