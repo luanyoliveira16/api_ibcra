@@ -6,15 +6,18 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // app.use(cors())
-
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
 
-    next();
- })
+    // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
 
+    next();
+});
 
 // Middleware para parsear JSON do corpo da requisição
 app.use(express.json());
