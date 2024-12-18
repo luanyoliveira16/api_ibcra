@@ -19,7 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.options('*', cors())
+app.use(cors({ origin: true }))
 
 // Middleware para parsear JSON do corpo da requisição
 app.use(express.json());
