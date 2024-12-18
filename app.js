@@ -13,12 +13,11 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
 
     // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
-    if (req.method === "OPTIONS") {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
-        res.sendStatus(200);
-    }
+   if (req.method === "OPTIONS") {
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+  }
 
     next();
 });
