@@ -27,38 +27,64 @@
 //     console.log(`API rodando na porta ${port}`);
 // });
 
-
-
 import express from 'express';
 import router from './routes/membrosRoutes.js';
-// import cors from 'cors';
-
+import cors from 'cors';
 const app = express();
-const port = process.env.PORT || 3000;
-
-// app.use(cors())
-
-Middleware para permitir CORS
-app.use((req, res, next) => {
-         res.header("Access-Control-Allow-Origin", "*");
-         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-         res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
-         res.sendStatus(200);
-   
-    }
-    // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
-    
-
-    next();
-});
 
 
-// Middleware para parsear JSON do corpo da requisição
+// Configure CORS
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Permitir apenas essa origem
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    credentials: true, // Permitir cookies ou autenticação
+  })
+);
+
+// Middleware de JSON
 app.use(express.json());
 
-// Roteamento dos membros
-app.use('/membros', router);
-
-app.listen(port, () => {
-  console.log(`API rodando na porta ${port}`);
+// Suas rotas
+app.get("/membros", (req, res) => {
+  res.json([{ id: 1, nome: "João" }]);
 });
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+
+
+
+// import express from 'express';
+// import router from './routes/membrosRoutes.js';
+// // import cors from 'cors';
+
+// const app = express();
+// const port = process.env.PORT || 3000;
+
+// // app.use(cors())
+
+// Middleware para permitir CORS
+// app.use((req, res, next) => {
+//          res.header("Access-Control-Allow-Origin", "*");
+//          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//          res.header("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
+//          res.sendStatus(200);
+   
+//     }
+//     // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
+    
+
+//     next();
+// });
+
+
+// // Middleware para parsear JSON do corpo da requisição
+// app.use(express.json());
+
+// // Roteamento dos membros
+// app.use('/membros', router);
+
+// app.listen(port, () => {
+//   console.log(`API rodando na porta ${port}`);
+// });
