@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 
     // Se for uma requisição do tipo OPTIONS, responde com status 200 imediatamente
     if (req.method === 'OPTIONS') {
-        return res.status(200).end();
+        return res.header("Access-Control-Allow-Origin", "*");
     }
 
     next();
