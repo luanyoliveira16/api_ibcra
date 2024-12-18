@@ -3,7 +3,7 @@ import router from './routes/membrosRoutes.js';
 import cors from 'cors';
 
 const corsOptions = {
-    origin: '*', // Permitir todas as origens
+    Access-Control-Allow-Origin: '*', // Permitir todas as origens
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'], // Permitir DELETE
     allowedHeaders: ['Content-Type', 'Authorization', '*'],
     preflightContinue: false,
