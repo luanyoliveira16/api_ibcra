@@ -44,9 +44,7 @@ app.use(function(req, res, next) {
 app.use(express.json());
 
 // Suas rotas
-app.get("/membros", (req, res) => {
-  res.json([{ id: 1, nome: "João" }]);
-});
+app.use('/membros', router);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
