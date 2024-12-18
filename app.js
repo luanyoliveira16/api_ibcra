@@ -25,7 +25,7 @@ app.use(cors({ origin: true }))
 app.use(express.json());
 
 // Roteamento dos membros
-app.use('/membros/', router);
+app.use('/membros', router);
 
 
 app.listen(port, () => {
