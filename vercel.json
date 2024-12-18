@@ -26,7 +26,7 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "destination": "https://api-ibcra.vercel.app/$1",
+      "destination": "https://api-ibcra.vercel.app",
       "permanent": true
     }
   ]
