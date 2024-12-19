@@ -16,13 +16,13 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { nome, data_nascimento, telefone, endereco, data_entrada, funcao, email, foto } = req.body;
+    const { nome, data_nascimento, telefone, endereco, data_entrada, funcao, email} = req.body;
 
     if (!nome || !data_nascimento || !telefone || !endereco || !data_entrada || !funcao || !email) {
         return res.status(400).json({ error: "Todos os campos são obrigatórios" });
     }
 
-    const valuesArray = [nome, data_nascimento, telefone, endereco, data_entrada, funcao, email, new Date(), foto];
+    const valuesArray = [nome, data_nascimento, telefone, endereco, data_entrada, funcao, email, new Date()];
 
     try {
         await new MemberRepository().insertMember(valuesArray);
