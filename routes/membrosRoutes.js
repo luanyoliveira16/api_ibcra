@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { nome, data_nascimento, telefone, endereco, data_entrada, funcao, email} = req.body;
+    const { nome, data_nascimento, telefone, endereco, data_entrada, funcao, email, foto} = req.body;
 
     if (!nome) {
         return res.status(400).json({ error: "Todos os campos são obrigatórios" });
