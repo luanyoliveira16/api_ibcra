@@ -3,7 +3,7 @@ import BaseRepository from "./BaseRepository.js";
 class MemberRepository extends BaseRepository {
     async getAll() {
         try {
-            const results = await super.getAll('membros', ['id', 'nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro']);
+            const results = await super.getAll('membros', ['id', 'nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro', 'foto']);
             return results;
         } catch (error) {
             throw error;
@@ -21,7 +21,7 @@ class MemberRepository extends BaseRepository {
 
     async insertMember(valuesArray) {
         try {
-            const columnsArray = ['nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro'];
+            const columnsArray = ['nome', 'data_nascimento', 'telefone', 'endereco', 'data_entrada', 'funcao', 'email', 'data_cadastro', 'foto'];
             const table = 'membros';
 
             return await super.insertMember(table, columnsArray, valuesArray);
