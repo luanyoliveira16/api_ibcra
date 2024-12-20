@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ error: "Todos os campos são obrigatórios" });
     }
 
-    const valuesArray = [nome, data_nascimento, telefone, endereco, data_entrada, funcao, email, new Date()];
+    const valuesArray = [nome, data_nascimento, telefone, endereco, data_entrada, funcao, email, new Date(), foto];
 
     try {
         await new MemberRepository().insertMember(valuesArray);
